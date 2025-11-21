@@ -9,6 +9,12 @@ https://github.com/goodroot/hyprwhspr-backends/blob/main/backends/parakeet-tdt-0
 This backend uses Python:
 
 ```bash
+# Create directory and download the backend file
+# Place it somewhere permanent, for example:
+mkdir -p ~/hyprwhspr-backends/parakeet-tdt-0.6b-v3
+cd ~/hyprwhspr-backends/parakeet-tdt-0.6b-v3
+curl -O https://raw.githubusercontent.com/goodroot/hyprwhspr-backends/main/backends/parakeet-tdt-0.6b-v3/parakeet-tdt-0.6b-v3.py
+
 # Create isolated environment
 uv venv
 
