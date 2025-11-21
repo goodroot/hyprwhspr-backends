@@ -12,6 +12,12 @@ This repository:
 
 * [Parakeet-tdt-0.6b-v3](https://github.com/goodroot/hyprwhspr-backends/tree/main/backends/parakeet-tdt-0.6b-v3)
 
+### Request a backend
+
+Request a new backend by [opening an issue](https://github.com/goodroot/hyprwhspr-backends/issues/new?template=new_backend.md).
+
+Alternatively, please contribute!
+
 ---
 
 ## Hyprwhspr configuration
