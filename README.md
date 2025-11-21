@@ -121,8 +121,6 @@ en
 
 ## 4. HTTP response (server contract)
 
-### 4.1 Success
-
 On success, the server must return:
 
 * Status: 200
@@ -140,35 +138,3 @@ On success, the server must return:
 Hyprwhspr checks these keys in this order:
 
 text → transcription → result.
-
-### 4.2 Errors
-
-If the status is not 200:
-
-* hyprwhspr logs the error
-
-* hyprwhspr returns an empty string
-
-Servers should:
-
-* Use 4xx for client errors (bad auth, bad format)
-
-* Use 5xx for server/internal errors
-
-Optionally return JSON like:
-
-```
-{ "error": "Something went wrong" }
-```
-
-### 4.3 Timeouts
-
-Hyprwhspr uses a configurable timeout (rest_timeout, default 30s).
-
-If the server exceeds this:
-
-* hyprwhspr logs a timeout error
-
-* returns an empty string
-
-Servers should aim to complete within the timeout window.
