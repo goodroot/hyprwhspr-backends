@@ -26,18 +26,27 @@ transcription_backend = "remote"
 # REQUIRED: the full URL to your transcription endpoint
 rest_endpoint_url = "https://your-server.example.com/transcribe"
 
-# OPTIONAL: sent as `Authorization: Bearer <rest_api_key>`
+# OPTIONAL: arbitrary HTTP headers to send with each request
+rest_headers = { authorization = "Bearer your-api-key-here" }
+
+# OPTIONAL: body fields merged with defaults (file, language, etc.)
+rest_body = { model = "custom-model" }
+
+# OPTIONAL: convenience for Authorization header
+# Equivalent to: rest_headers = { authorization = "Bearer your-api-key-here" }
 rest_api_key = "your-api-key-here"
 
 # OPTIONAL: request timeout in seconds (default: 30)
 rest_timeout = 30
 
-# OPTIONAL: Reserved for future use if we add support for other formats.
-rest_audio_format = "wav"
-
-# OPTIONAL: language hint, sent as a form field (see below).
+# OPTIONAL: language hint, sent as a form field (see below)
+# Can be overridden per-request by setting language in rest_body
 language = "en"
 ```
+
+Note: `rest_body` merges with auto-generated fields (like `language`). 
+
+Set `language` inside `rest_body` if you need to override the configured language per request.
     
 ---
 
@@ -70,7 +79,9 @@ POST https://your-server.example.com/transcribe
 
 Accept: application/json
 
-Authorization: Bearer <rest_api_key> (only if configured)
+Additional headers can be configured via `rest_headers`. 
+
+The `rest_api_key` option is a convenience that sets `Authorization: Bearer <rest_api_key>`.
 
 ### Body encoding
 
@@ -78,13 +89,15 @@ Hyprwhspr always sends the request as multipart/form-data.
 
 The multipart request will contain:
 
-1. A file field containing the WAV audio
+1. A file field containing the WAV audio (always included)
 
-2. A language field (optional)
+2. Fields from `rest_body` configuration (optional, merged with defaults)
+
+3. A language field (included if configured, unless overridden in `rest_body`)
 
 ### Form fields
 
-**file (required)**
+**file (required, auto-generated)**
 
 Field name: file
 Filename: audio.wav
@@ -93,23 +106,40 @@ Format: 16-bit PCM
 Channels: mono
 Sample rate: typically 16 kHz
 
-Servers must read this field as the raw audio input.
+Servers must read this field as the raw audio input. This field is always included automatically.
 
-**language (optional)**
+**language (optional, auto-generated)**
 
 Field name: language
 Type: text
-Only included if configured in hyprwhspr.
+Included if configured in hyprwhspr's top-level `language` setting, unless overridden by setting `language` in `rest_body`.
 
 Servers may use this as a language hint.
 
+**Custom fields (optional, from `rest_body`)**
+
+Any fields specified in `rest_body` will be merged with the default fields (file, language). 
+
+Fields in `rest_body` take precedence over auto-generated fields with the same name.
+
 ### Example raw request (conceptual)
+
+With configuration:
+
+```toml
+rest_headers = { authorization = "Bearer some-token", "x-model" = "parakeet-tdt-0.6b-v3" }
+rest_body = { temperature = "0.0" }
+language = "en"
+```
+
+The request would be:
 
 ```
 POST /transcribe HTTP/1.1
 Host: your-server.example.com
 Accept: application/json
 Authorization: Bearer some-token
+X-Model: parakeet-tdt-0.6b-v3
 Content-Type: multipart/form-data; boundary=----XYZ
 
 ------XYZ
@@ -122,6 +152,11 @@ Content-Type: audio/wav
 Content-Disposition: form-data; name="language"
 
 en
+
+------XYZ
+Content-Disposition: form-data; name="temperature"
+
+0.0
 
 ------XYZ--
 ```

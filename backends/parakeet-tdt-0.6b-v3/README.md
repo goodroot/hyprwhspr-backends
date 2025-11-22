@@ -116,11 +116,19 @@ systemctl status parakeet-tdt-0.6b-v3.service
 In your hyprwhspr config:
 
 ```json
-"transcription_backend": "remote",
-"rest_endpoint_url": "http://127.0.0.1:8080/transcribe",
-"rest_timeout": 60,
-"rest_audio_format": "wav",
-"language": "en"
+{
+    "transcription_backend": "remote",
+    "rest_endpoint_url": "http://127.0.0.1:8080/transcribe",
+    "rest_headers": {
+        "x-model": "parakeet-tdt-0.6b-v3"
+    },
+    "rest_body": {
+        "temperature": "0.0"
+    },
+    "rest_api_key": "your-api-key-here",
+    "rest_timeout": 60,
+    "language": "en"
+}
 ```
 
 Systemd integration is optional! 
