@@ -135,4 +135,4 @@ Systemd integration is optional!
 
 The backend will work fine without it.
 
-You just have to start it on your own.  s
+You just have to start it on your own. 🙂
