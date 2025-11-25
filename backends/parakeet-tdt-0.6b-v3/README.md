@@ -15,19 +15,16 @@ mkdir -p ~/hyprwhspr-backends/parakeet-tdt-0.6b-v3
 cd ~/hyprwhspr-backends/parakeet-tdt-0.6b-v3
 curl -O https://raw.githubusercontent.com/goodroot/hyprwhspr-backends/main/backends/parakeet-tdt-0.6b-v3/parakeet-tdt-0.6b-v3.py
 
-# Create isolated environment
-uv venv
+# Make executable
+chmod +x parakeet-tdt-0.6b-v3.py
 
-# Activate environment (optional but helps some tools)
-source .venv/bin/activate
+# Run backend (uv handles dependencies automatically!)
+./parakeet-tdt-0.6b-v3.py
+```
 
-# Install CUDA-enabled PyTorch for GPU accel
-uv pip install torch --index-url https://download.pytorch.org/whl/cu121
+Alternatively, you can use `uv run`:
 
-# Install Parakeet dependencies - cuda python optional, silences a warn
-uv pip install nemo_toolkit[asr] fastapi "uvicorn[standard]" soundfile python-multipart cuda-python>=12.3
-
-# Run backend
+```bash
 uv run parakeet-tdt-0.6b-v3.py
 ```
 
@@ -48,14 +45,18 @@ Place your backend somewhere permanent, for example:
 Inside that directory you should have:
 
 - `parakeet-tdt-0.6b-v3.py`
-- `.venv/`
 
 Make sure you can run it manually before adding systemd:
 
 ```bash
 cd /home/USER/hyprwhspr-backends/parakeet-tdt-0.6b-v3
-source .venv/bin/activate
-python parakeet-tdt-0.6b-v3.py
+uv run parakeet-tdt-0.6b-v3.py
+```
+
+Or if the script is executable:
+
+```bash
+./parakeet-tdt-0.6b-v3.py
 ```
 
 ### Example systemd service
@@ -77,7 +78,7 @@ Wants=hyprwhspr.service
 [Service]
 Type=simple
 WorkingDirectory=/home/USER/hyprwhspr-backends/parakeet-tdt-0.6b-v3
-ExecStart=/home/USER/hyprwhspr-backends/parakeet-tdt-0.6b-v3/.venv/bin/python parakeet-tdt-0.6b-v3.py
+ExecStart=/usr/bin/uv run /home/USER/hyprwhspr-backends/parakeet-tdt-0.6b-v3/parakeet-tdt-0.6b-v3.py
 
 Environment=NEMO_CACHE_DIR=/home/USER/hyprwhspr-backends/parakeet-tdt-0.6b-v3/.nemo_cache
 Environment=CUDA_VISIBLE_DEVICES=0

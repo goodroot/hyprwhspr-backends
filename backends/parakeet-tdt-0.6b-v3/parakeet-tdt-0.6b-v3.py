@@ -1,3 +1,22 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "nemo_toolkit[asr]",
+#   "fastapi",
+#   "uvicorn[standard]",
+#   "soundfile",
+#   "python-multipart",
+#   "cuda-python>=12.3",
+#   "torch",
+# ]
+# [[tool.uv.index]]
+# name = "pytorch-cu121"
+# url = "https://download.pytorch.org/whl/cu121"
+# explicit = true
+# [tool.uv.sources]
+# torch = { index = "pytorch-cu121" }
+# ///
 # runs parakeet in memory, transcribes, returns to hyprwhspr
 import io
 import os
