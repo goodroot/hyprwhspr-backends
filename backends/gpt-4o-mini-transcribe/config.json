@@ -1,0 +1,9 @@
+{
+  "transcription_backend": "remote",
+  "rest_endpoint_url": "https://api.openai.com/v1/audio/transcriptions",
+  "rest_api_key": "sk-proj-xxx",
+  "rest_body": {
+    "model": "gpt-4o-mini-transcribe"
+  }
+}
+
