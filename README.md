@@ -10,6 +10,7 @@ This repository:
 
 ## Backends
 
+* [gpt-4o-mini-transcribe (cloud)](https://github.com/goodroot/hyprwhspr-backends/tree/main/backends/gpt-4o-mini-transcribe)
 * [Parakeet-tdt-0.6b-v3](https://github.com/goodroot/hyprwhspr-backends/tree/main/backends/parakeet-tdt-0.6b-v3)
 
 > To request a new backend, [open an issue](https://github.com/goodroot/hyprwhspr-backends/issues/new?template=new_backend.md). Alternatively, please contribute!
