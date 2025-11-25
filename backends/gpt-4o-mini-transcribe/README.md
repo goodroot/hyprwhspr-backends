@@ -1,6 +1,6 @@
 # GPT-4o-mini-transcribe
 
-Cloud-based transcription using OpenAI's GPT-4o-mini model.
+Cloud-based transcription using [OpenAI's GPT-4o-mini model](https://platform.openai.com/docs/models/gpt-4o-mini-transcribe).
 
 No local installation required - runs entirely via OpenAI's API.
 
