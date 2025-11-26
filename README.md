@@ -10,6 +10,7 @@ This repository:
 
 ## Backends
 
+* [whisper-large-v3 (cloud)](https://github.com/goodroot/hyprwhspr-backends/tree/main/backends/whisper-large-v3)
 * [gpt-4o-mini-transcribe (cloud)](https://github.com/goodroot/hyprwhspr-backends/tree/main/backends/gpt-4o-mini-transcribe)
 * [Parakeet-tdt-0.6b-v3](https://github.com/goodroot/hyprwhspr-backends/tree/main/backends/parakeet-tdt-0.6b-v3)
 
